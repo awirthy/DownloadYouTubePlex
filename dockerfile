@@ -19,12 +19,12 @@ RUN pip install email-validator
 RUN python3 -m pip install requests-html
 RUN cp /usr/share/zoneinfo/Australia/Melbourne /etc/localtime
 RUN echo "Australia/Melbourne" >  /etc/timezone
-RUN wget -O /tmp/DownloadYouTubePlex.tar.gz https://github.com/awirthy/DownloadYouTubePlex/archive/refs/tags/v0.18.0.tar.gz
+RUN wget -O /tmp/DownloadYouTubePlex.tar.gz https://github.com/awirthy/DownloadYouTubePlex/archive/refs/tags/v0.19.0.tar.gz
 RUN mkdir -p /opt/DownloadYouTubePlex
 RUN tar zxf /tmp/DownloadYouTubePlex.tar.gz -C /opt/DownloadYouTubePlex
 RUN echo "#!/bin/sh" >> /etc/periodic/15min/DownloadYouTubePlex
-RUN echo "/opt/DownloadYouTubePlex/DownloadYouTubePlex-0.18.0/DownloadYouTubePlex.sh" >> /etc/periodic/15min/DownloadYouTubePlex
-RUN chmod 755 /opt/DownloadYouTubePlex/DownloadYouTubePlex-0.18.0/DownloadYouTubePlex.sh
+RUN echo "/opt/DownloadYouTubePlex/DownloadYouTubePlex-0.19.0/DownloadYouTubePlex.sh" >> /etc/periodic/15min/DownloadYouTubePlex
+RUN chmod 755 /opt/DownloadYouTubePlex/DownloadYouTubePlex-0.19.0/DownloadYouTubePlex.sh
 RUN chmod 755 /etc/periodic/15min/DownloadYouTubePlex
 CMD ["crond", "-f","-l","8"]
     
