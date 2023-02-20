@@ -90,7 +90,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         try:
             print("List Files")
             
-            directory = os.fsencode(sMediaFolder + pChannelID)
+            directory = os.fsencode(sMediaFolder + pChannelID + "/Season 1")
                 
             for file in os.listdir(directory):
                 filename = os.fsdecode(file)
@@ -109,9 +109,9 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                         print (err)
                         print ('\n------------------      END GET EXT ERROR')
 
-                    filename_json = sMediaFolder + pChannelID + "/" + filename_noext + ".info.json"
-                    filename_mp3 = sMediaFolder + pChannelID + "/" + filename_noext + ".mp3"
-                    filename_mp4 = sMediaFolder + pChannelID + "/" + filename_noext + ".mp4"
+                    filename_json = sMediaFolder + pChannelID + "/Season 1/" + filename_noext + ".info.json"
+                    filename_mp3 = sMediaFolder + pChannelID + "/Season 1/" + filename_noext + ".mp3"
+                    filename_mp4 = sMediaFolder + pChannelID + "/Season 1/" + filename_noext + ".mp4"
 
                     print("filename_json: " + filename_json)
                     print("filename_mp3: " + filename_mp3)
@@ -189,7 +189,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                         # ======================================================== #
                         # ================ Get Channel Information =============== #
                         # ======================================================== #
-                        channel_filename_json = sMediaFolder + pChannelID + "/" + pChannelID + ".info.json"
+                        channel_filename_json = sMediaFolder + pChannelID + "/Season 1/" + pChannelID + ".info.json"
                         channelf = open(channel_filename_json)
                         channeldata = json.load(channelf)
                         ytvideo_channel_desc = channeldata['description']
