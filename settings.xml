@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Settings>
+	<Email>a.wirthy@gmail.com</Email>
+	<MediaFolder>/mnt/pve/NFS_1TB/Other_Videos/Python/</MediaFolder>
+	<PodcastDownload Name="Lethamyr" ChannelID="Lethamyr" FileFormat="mp4" DownloadArchive="/config/youtube-dl-archive-ForPlex.txt" FileQuality="best" ChannelThumbnail="" YouTubeURL="https://www.youtube.com/c/Lethamyr/videos" />
+	<PodcastDownload Name="SunlessKhan" ChannelID="SunlessKhan" FileFormat="mp4" DownloadArchive="/config/youtube-dl-archive-ForPlex.txt" FileQuality="best" ChannelThumbnail="" YouTubeURL="https://www.youtube.com/c/SunlessKhan/videos" />
+	<PodcastDownload Name="Woodyyyy" ChannelID="Woodyyyy" FileFormat="mp4" DownloadArchive="/config/youtube-dl-archive-ForPlex.txt" FileQuality="best" ChannelThumbnail="" YouTubeURL="https://www.youtube.com/@Woodyyyy/videos" />
+	<PodcastDownload Name="DashCams Australia" ChannelID="DashCamsAustralia" FileFormat="mp4" DownloadArchive="/config/youtube-dl-archive-ForPlex.txt" FileQuality="best" ChannelThumbnail="" YouTubeURL="https://www.youtube.com/@DashCamOwnersAustralia/videos" />
+	<PodcastDownload Name="LinusTechTips" ChannelID="LinusTechTips" FileFormat="mp4" DownloadArchive="/config/youtube-dl-archive-ForPlex.txt" FileQuality="best" ChannelThumbnail="" YouTubeURL="https://www.youtube.com/@LinusTechTips/videos" />
+	<PodcastDownload Name="For_Plex" ChannelID="For_Plex" FileFormat="mp4" DownloadArchive="/config/youtube-dl-archive-ForPlex.txt" FileQuality="best" ChannelThumbnail="" YouTubeURL="https://youtube.com/playlist?list=PLNJTvO4HBij__Iw_ctjC6V4Pnv7pS8HUf" />
+</Settings>
