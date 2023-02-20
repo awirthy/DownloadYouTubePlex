@@ -187,6 +187,16 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                         f.close()
 
                         # ======================================================== #
+                        # ================== Download Thumbnail ================== #
+                        # ======================================================== #
+
+                        print ('------------------      Download Thumbnail\n')
+                        bashcmdoutput = 'wget -O "' + sMediaFolder + pChannelID + '/Season 1/' + filename_noext + '-thumb.jpg"' + ' ' + ytvideo_thumbnail
+                        print("bashcmd: " + bashcmdoutput)
+                        processoutput = subprocess.Popen(bashcmdoutput.split(), stdout=subprocess.PIPE)
+                        outputthumb, erroroutput = processoutput.communicate()
+
+                        # ======================================================== #
                         # ================ Get Channel Information =============== #
                         # ======================================================== #
                         channel_filename_json = sMediaFolder + pChannelID + "/Season 1/" + pChannelID + ".info.json"
