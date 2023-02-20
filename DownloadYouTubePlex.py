@@ -53,7 +53,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         # ============== Download Channel JSON Only ============== #
         # ======================================================== #
 
-        bashcmd3 = "yt-dlp -v -o " + sMediaFolder + pChannelID + "/" + pChannelID + ".[%(ext)s] --write-info-json --playlist-items 0 --restrict-filenames --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue " + pYouTubeURL
+        bashcmd3 = "yt-dlp -v -o " + sMediaFolder + pChannelID + "/" + pChannelID + "/Season 1/.[%(ext)s] --write-info-json --playlist-items 0 --restrict-filenames --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue " + pYouTubeURL
         # bashcmd = "yt-dlp -v -o '" + sMediaFolder + pChannelID + "/%(id)s.%(ext)s' --write-info-json --external-downloader aria2c --external-downloader-args '-c -j 10 -x 10 -s 10 -k 1M' --playlist-items 1,2,3,4,5,3,4,5 --restrict-filenames --download-archive '" + pDownloadArchive + "' --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
         # print(bashcmd)
 
@@ -67,7 +67,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         # ============== Download Videos with yt-dlp ============= #
         # ======================================================== #
 
-        bashcmd = "yt-dlp -v -o " + sMediaFolder + pChannelID + "/[%(id)s].%(ext)s --write-info-json --no-write-playlist-metafiles --playlist-items 1,2 --restrict-filenames --download-archive " + pDownloadArchive + " --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
+        bashcmd = "yt-dlp -v -o " + sMediaFolder + pChannelID + "/Season 1/[%(id)s].%(ext)s --write-info-json --no-write-playlist-metafiles --playlist-items 1,2 --restrict-filenames --download-archive " + pDownloadArchive + " --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
         # bashcmd = "yt-dlp -v -o '" + sMediaFolder + pChannelID + "/%(id)s.%(ext)s' --write-info-json --external-downloader aria2c --external-downloader-args '-c -j 10 -x 10 -s 10 -k 1M' --playlist-items 1,2,3,4,5,3,4,5 --restrict-filenames --download-archive '" + pDownloadArchive + "' --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
         print ('------------------      \n\n')
         print("bashcmd: " + bashcmd)
@@ -216,7 +216,18 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                         # ==================== Notify Pushover =================== #
                         # ======================================================== #
 
-                        NotifyPushover("apb75jkyb1iegxzp4styr5tgidq3fg","RSS Podcast Downloaded (" + pName + ")","<html><body>" + ytvideo_title + "<br /><br />--------------------------------------------<br /><br />" + ytvideo_description + "</body></html>",ytvideo_thumbnail)
+                        with open(pDownloadArchive, 'r') as rsstemplate:
+                            RSSData = rsstemplate.readlines()
+                            strRSSData = ''.join(RSSData)
+
+                        # ======================================================== #
+                        # =============== Add Items to Existing XML ============== #
+                        # ======================================================== #
+
+                        if ytvideo_uid in strRSSData:
+                            print("Item (" + ytvideo_uid + ") already in archive file")
+                        else:
+                            NotifyPushover("apb75jkyb1iegxzp4styr5tgidq3fg","YouTube Video Downloaded (" + pName + ")","<html><body>" + ytvideo_title + "<br /><br />--------------------------------------------<br /><br />" + ytvideo_description + "</body></html>",ytvideo_thumbnail)
                     continue
                 else:
                     continue
