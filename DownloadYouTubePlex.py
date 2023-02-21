@@ -67,7 +67,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         # ======================================================== #
 
         pubDate = time.strftime('%Y%m%d%H%M')
-        bashcmd = "yt-dlp -v -o " + sMediaFolder + pChannelID + "/Season_1/s1.e%(timestamp)s_%(id)s.%(ext)s --write-info-json --no-write-playlist-metafiles --playlist-items 1,2 --restrict-filenames --download-archive " + pDownloadArchive + " --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
+        bashcmd = "yt-dlp -v -o " + sMediaFolder + pChannelID + "/Season_1/s1.e%(release_timestamp)s_%(id)s.%(ext)s --write-info-json --no-write-playlist-metafiles --playlist-items 1,2 --restrict-filenames --download-archive " + pDownloadArchive + " --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
         # bashcmd = "yt-dlp -v -o '" + sMediaFolder + pChannelID + "/%(id)s.%(ext)s' --write-info-json --external-downloader aria2c --external-downloader-args '-c -j 10 -x 10 -s 10 -k 1M' --playlist-items 1,2,3,4,5,3,4,5 --restrict-filenames --download-archive '" + pDownloadArchive + "' --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
         print ('------------------      \n\n')
         print("bashcmd: " + bashcmd)
