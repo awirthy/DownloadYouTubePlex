@@ -1,5 +1,5 @@
 # /etc/cron.d/ytdl
 # 
 python3 -m pip install -U yt-dlp
-python3 /opt/DownloadYouTubePlex/DownloadYouTubePlex-0.28.0/DownloadYouTubePlex.py  >> /proc/1/fd/1;
+python3 /opt/DownloadYouTubePlex/DownloadYouTubePlex-0.29.0/DownloadYouTubePlex.py  >> /proc/1/fd/1;
 echo "DONE"  >> /proc/1/fd/1;
