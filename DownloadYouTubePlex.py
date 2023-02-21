@@ -191,7 +191,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                         # ======================================================== #
 
                         print ('------------------      Download Thumbnail\n')
-                        bashcmdoutput = 'wget -O "' + sMediaFolder + pChannelID + '/Season_1/' + filename_noext + '-thumb.jpg"' + ' ' + ytvideo_thumbnail
+                        bashcmdoutput = 'wget -O ' + sMediaFolder + pChannelID + '/Season_1/' + filename_noext + '-thumb.jpg ' + ytvideo_thumbnail
                         print("bashcmd: " + bashcmdoutput)
                         processoutput = subprocess.Popen(bashcmdoutput.split(), stdout=subprocess.PIPE)
                         outputthumb, erroroutput = processoutput.communicate()
