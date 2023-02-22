@@ -186,7 +186,8 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                         # ======================================================== #
 
                         proceedCheck = False
-                        with open(pDownloadArchive, 'r') as objArchive:
+                        pDownloadArchiveRename = "/config/youtube-dl-archive-ForPlex-Rename.txt"
+                        with open(pDownloadArchiveRename, 'r') as objArchive:
                                 strArchiveData = objArchive.readlines()
                                 strArchiveDataAll = ''.join(strArchiveData)
                                 objArchive.close
@@ -200,7 +201,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                             
                             # ~~~~~~~~~~~~~ Add to archive ~~~~~~~~~~~~ #
 
-                            archive = open(pDownloadArchive, "a")
+                            archive = open(pDownloadArchiveRename, "a")
                             archive.write("youtube " + ytvideo_uid + "\n")
                             archive.close()
 
