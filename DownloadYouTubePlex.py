@@ -181,64 +181,149 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                         print("ytvideo_channel_url: " + ytvideo_channel_url)
                         print("ytvideo_webpage_url: " + ytvideo_webpage_url)
 
-                        # print('ytvideo_duration: ' + str(ytvideo_duration))
-                        print ('\n------------------      Item (' + ytvideo_uid + ')')
-
-                        # Closing file
-                        f.close()
-
                         # ======================================================== #
-                        # ================== Download Thumbnail ================== #
+                        # =========== Check for Item in DownloadArchive ========== #
                         # ======================================================== #
 
-                        print ('------------------      Download Thumbnail\n')
-                        bashcmdoutput = 'wget -O ' + sMediaFolder + pChannelID + '/Season_1/' + filename_noext + '-thumb.jpg ' + ytvideo_thumbnail
-                        print("bashcmd: " + bashcmdoutput)
-                        processoutput = subprocess.Popen(bashcmdoutput.split(), stdout=subprocess.PIPE)
-                        outputthumb, erroroutput = processoutput.communicate()
-
-                        # ======================================================== #
-                        # ================ Get Channel Information =============== #
-                        # ======================================================== #
-                        channel_filename_json = sMediaFolder + pChannelID + "/Season_1/" + pChannelID + ".info.json"
-                        channelf = open(channel_filename_json)
-                        channeldata = json.load(channelf)
-                        ytvideo_channel_desc = channeldata['description']
-                        ytvideo_channel_image = ''
-                        # print("----------------------   Thumbnails")
-                        # print(channeldata['thumbnails'])
-                        for thumbs in channeldata['thumbnails']:
-                            thumbsjson = str(thumbs).replace("'",'"')
-                            # print('thumbs json: ' + thumbsjson)
-                            thumbdata = json.loads(thumbsjson)
-
-                            if thumbdata['id'] == "avatar_uncropped":
-                                # print("id: " + thumbdata['id'])
-                                # print("url: " + thumbdata['url'])
-                                ytvideo_channel_image = thumbdata['url']
-                            # print("-------- THUMB")
-                        # print("----------------------")
-                        if pChannelThumbnail == "":
-                            pChannelThumbnail = ytvideo_channel_image
-                        print("Channel Thumbnail: " + ytvideo_channel_image)
-                        channelf.close
-
-                        # ======================================================== #
-                        # ==================== Notify Pushover =================== #
-                        # ======================================================== #
-
-                        with open(pDownloadArchive, 'r') as rsstemplate:
-                            RSSData = rsstemplate.readlines()
-                            strRSSData = ''.join(RSSData)
-
-                        # ======================================================== #
-                        # =============== Add Items to Existing XML ============== #
-                        # ======================================================== #
-
-                        if ytvideo_uid in strRSSData:
-                            print("Item (" + ytvideo_uid + ") already in archive file")
+                        proceedCheck = False
+                        with open(pDownloadArchive, 'r') as objArchive:
+                                strArchiveData = objArchive.readlines()
+                                strArchiveDataAll = ''.join(strArchiveData)
+                                objArchive.close
+                        
+                        if ytvideo_uid in strArchiveDataAll:
+                            print("Already in Archive: " + ytvideo_uid)
+                            proceedCheck = False
                         else:
-                            NotifyPushover("apb75jkyb1iegxzp4styr5tgidq3fg","YouTube Video Downloaded (" + pName + ")","<html><body>" + ytvideo_title + "<br /><br />--------------------------------------------<br /><br />" + ytvideo_description + "</body></html>",ytvideo_thumbnail)
+                            print("Not in Archive: " + ytvideo_uid)
+                            proceedCheck = True
+                            
+                            # ~~~~~~~~~~~~~ Add to archive ~~~~~~~~~~~~ #
+
+                            archive = open(pDownloadArchive, "a")
+                            archive.write("youtube " + ytvideo_uid + "\n")
+                            archive.close()
+
+                        # ======================================================== #
+                        # ======================================================== #
+                        # ======================================================== #
+
+                        if proceedCheck == True:
+                            # print('ytvideo_duration: ' + str(ytvideo_duration))
+                            print ('\n------------------      Item (' + ytvideo_uid + ')')
+
+                            # Closing file
+                            f.close()
+
+                            # ======================================================== #
+                            # ================== Download Thumbnail ================== #
+                            # ======================================================== #
+
+                            print ('------------------      Download Thumbnail\n')
+                            bashcmdoutput = 'wget -O ' + sMediaFolder + pChannelID + '/Season_1/' + filename_noext + '.jpg ' + ytvideo_thumbnail
+                            print("bashcmd: " + bashcmdoutput)
+                            processoutput = subprocess.Popen(bashcmdoutput.split(), stdout=subprocess.PIPE)
+                            outputthumb, erroroutput = processoutput.communicate()
+
+                            # ======================================================== #
+                            # ================ Get Channel Information =============== #
+                            # ======================================================== #
+                            channel_filename_json = sMediaFolder + pChannelID + "/Season_1/" + pChannelID + ".info.json"
+                            channelf = open(channel_filename_json)
+                            channeldata = json.load(channelf)
+                            ytvideo_channel_desc = channeldata['description']
+                            ytvideo_channel_image = ''
+                            # print("----------------------   Thumbnails")
+                            # print(channeldata['thumbnails'])
+                            for thumbs in channeldata['thumbnails']:
+                                thumbsjson = str(thumbs).replace("'",'"')
+                                # print('thumbs json: ' + thumbsjson)
+                                thumbdata = json.loads(thumbsjson)
+
+                                if thumbdata['id'] == "avatar_uncropped":
+                                    # print("id: " + thumbdata['id'])
+                                    # print("url: " + thumbdata['url'])
+                                    ytvideo_channel_image = thumbdata['url']
+                                # print("-------- THUMB")
+                            # print("----------------------")
+                            if pChannelThumbnail == "":
+                                pChannelThumbnail = ytvideo_channel_image
+                            print("Channel Thumbnail: " + ytvideo_channel_image)
+                            channelf.close
+
+                            # ======================================================== #
+                            # ================= Rename Files for PLex ================ #
+                            # ======================================================== #
+
+                            channelEpisodeNumber = "/config/" + pChannelID + "_EpisodeNumber.txt"
+                            if os.path.isfile(channelEpisodeNumber):
+                                #open and read the file after the appending:
+
+                                with open(channelEpisodeNumber, 'r') as rsstemplate:
+                                    EpNumData = rsstemplate.readlines()
+                                    strchannelEpisodeNumber = ''.join(EpNumData)
+                                    strchannelEpisodeNumber = strchannelEpisodeNumber.rstrip()
+                                    rsstemplate.close
+
+                                # epnum = open(channelEpisodeNumber, "r")
+                                # intepnum = "%02d" % (epnum,)
+                                # strepnum = str(int(channelEpisodeNumber)).zfill(2)
+                                intepnum = int(strchannelEpisodeNumber)
+                                print("channelEpisodeNumber (Before): " + str(intepnum))
+                            else:
+                                # epnum = open(channelEpisodeNumber, "w")
+                                # epnum.write("1")
+                                # print("channelEpisodeNumber: 1")
+                                # epnum.close()
+                                # intepnum = "%02d" % ("1",)
+                                # strepnum = str(1).zfill(2)
+                                intepnum = 0
+                                # print("channelEpisodeNumber: " + strepnum)
+                                print("channelEpisodeNumber (Before): " + str(intepnum))
+                            
+                            intepnum = intepnum + 1
+                            epnum = open(channelEpisodeNumber, "w")
+                            epnum.write(str(intepnum))
+                            epnum.close()
+                            strepnum = str(intepnum).zfill(2)
+                            print("channelEpisodeNumber (After): " + str(intepnum))
+                            print("channelEpisodeNumber: " + str(strepnum))
+
+                            # =============================================== #
+                            # ================= Rename File ================= #
+                            # =============================================== #
+
+                            # s01e02 - gc0rXlWwgB0.mp4
+
+                            print("Before Rename (mp4): " + sMediaFolder + pChannelID + "/" + filename_noext + ".mp4")
+                            renameString = "s01e" + str(strepnum) + " - " + ytvideo_uid
+                            print("After Rename (mp4): " + sMediaFolder + pChannelID + "/" + renameString + ".mp4")
+
+                            print("Before Rename (jpg): " + sMediaFolder + pChannelID + "/" + filename_noext + ".jpg")
+                            # renameString = "s01e" + str(strepnum) + " - " + ytvideo_uid
+                            print("After Rename (jpg): " + sMediaFolder + pChannelID + "/" + renameString + ".jpg")
+
+                            os.rename(sMediaFolder + pChannelID + "/" + filename_noext + ".mp4", sMediaFolder + pChannelID + "/" + renameString + ".mp4")
+                            os.rename(sMediaFolder + pChannelID + "/" + filename_noext + ".jpg", sMediaFolder + pChannelID + "/" + renameString + ".jpg")
+                            os.rename(sMediaFolder + pChannelID + "/" + filename_noext + ".description", sMediaFolder + pChannelID + "/" + renameString + ".description")
+                            os.rename(sMediaFolder + pChannelID + "/" + filename_noext + ".info.json", sMediaFolder + pChannelID + "/" + renameString + ".info.json")
+
+                            # ======================================================== #
+                            # ==================== Notify Pushover =================== #
+                            # ======================================================== #
+
+                            with open(pDownloadArchive, 'r') as rsstemplate:
+                                RSSData = rsstemplate.readlines()
+                                strRSSData = ''.join(RSSData)
+
+                            # ======================================================== #
+                            # =============== Add Items to Existing XML ============== #
+                            # ======================================================== #
+
+                            if ytvideo_uid in strRSSData:
+                                print("Item (" + ytvideo_uid + ") already in archive file")
+                            else:
+                                NotifyPushover("apb75jkyb1iegxzp4styr5tgidq3fg","YouTube Video Downloaded (" + pName + ")","<html><body>" + ytvideo_title + "<br /><br />--------------------------------------------<br /><br />" + ytvideo_description + "</body></html>",ytvideo_thumbnail)
                     continue
                 else:
                     continue
