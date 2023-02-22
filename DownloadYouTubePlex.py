@@ -52,7 +52,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         # ======================================================== #
         # ============== Download Channel JSON Only ============== #
         # ======================================================== #
-        bashcmd3 = "yt-dlp -v -o " + sMediaFolder + pChannelID + "/Season_1/" + pChannelID + ".%(ext)s --write-info-json --playlist-items 0 --restrict-filenames --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue " + pYouTubeURL
+        bashcmd3 = 'yt-dlp -v -o "' + sMediaFolder + pChannelID + '/Season 01/' + pChannelID + '.%(ext)s" --write-info-json --playlist-items 0 --restrict-filenames --add-metadata --merge-output-format ' + pFileFormat + ' --format ' + pFileQuality + ' --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue ' + pYouTubeURL
         # bashcmd = "yt-dlp -v -o '" + sMediaFolder + pChannelID + "/%(id)s.%(ext)s' --write-info-json --external-downloader aria2c --external-downloader-args '-c -j 10 -x 10 -s 10 -k 1M' --playlist-items 1,2,3,4,5,3,4,5 --restrict-filenames --download-archive '" + pDownloadArchive + "' --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
         # print(bashcmd)
 
@@ -67,7 +67,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         # ======================================================== #
 
         pubDate = time.strftime('%Y%m%d%H%M')
-        bashcmd = "yt-dlp -v -o " + sMediaFolder + pChannelID + "/Season_1/s1e%(upload_date)s%(duration)s%(like_count)s_%(id)s.%(ext)s --write-info-json --no-write-playlist-metafiles --playlist-items 1,2 --restrict-filenames --download-archive " + pDownloadArchive + " --add-metadata --no-embed-thumbnail --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
+        bashcmd = 'yt-dlp -v -o "' + sMediaFolder + pChannelID + '/Season 1/%(id)s.%(ext)s" --write-info-json --no-write-playlist-metafiles --playlist-items 1,2 --restrict-filenames --add-metadata --no-embed-thumbnail --merge-output-format ' + pFileFormat + ' --format ' + pFileQuality + ' --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description ' + pYouTubeURL
         # bashcmd = "yt-dlp -v -o '" + sMediaFolder + pChannelID + "/%(id)s.%(ext)s' --write-info-json --external-downloader aria2c --external-downloader-args '-c -j 10 -x 10 -s 10 -k 1M' --playlist-items 1,2,3,4,5,3,4,5 --restrict-filenames --download-archive '" + pDownloadArchive + "' --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
         print ('------------------      \n\n')
         print("bashcmd: " + bashcmd)
@@ -90,7 +90,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         try:
             print("List Files")
             
-            directory = os.fsencode(sMediaFolder + pChannelID + "/Season_1")
+            directory = os.fsencode(sMediaFolder + pChannelID + "/Season 01")
                 
             for file in os.listdir(directory):
                 filename = os.fsdecode(file)
@@ -109,9 +109,9 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                         print (err)
                         print ('\n------------------      END GET EXT ERROR')
 
-                    filename_json = sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".info.json"
-                    filename_mp3 = sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".mp3"
-                    filename_mp4 = sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".mp4"
+                    filename_json = sMediaFolder + pChannelID + "/Season 1/" + filename_noext + ".info.json"
+                    filename_mp3 = sMediaFolder + pChannelID + "/Season 1/" + filename_noext + ".mp3"
+                    filename_mp4 = sMediaFolder + pChannelID + "/Season 1/" + filename_noext + ".mp4"
 
                     print("filename_json: " + filename_json)
                     print("filename_mp3: " + filename_mp3)
@@ -220,7 +220,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                             # ======================================================== #
 
                             print ('------------------      Download Thumbnail\n')
-                            bashcmdoutput = 'wget -O ' + sMediaFolder + pChannelID + '/Season_1/' + filename_noext + '.jpg ' + ytvideo_thumbnail
+                            bashcmdoutput = 'wget -O "' + sMediaFolder + pChannelID + '/Season 1/' + filename_noext + '.jpg" ' + ytvideo_thumbnail
                             print("bashcmd: " + bashcmdoutput)
                             processoutput = subprocess.Popen(bashcmdoutput.split(), stdout=subprocess.PIPE)
                             outputthumb, erroroutput = processoutput.communicate()
@@ -228,7 +228,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                             # ======================================================== #
                             # ================ Get Channel Information =============== #
                             # ======================================================== #
-                            channel_filename_json = sMediaFolder + pChannelID + "/Season_1/" + pChannelID + ".info.json"
+                            channel_filename_json = sMediaFolder + pChannelID + "/Season 1/" + pChannelID + ".info.json"
                             channelf = open(channel_filename_json)
                             channeldata = json.load(channelf)
                             ytvideo_channel_desc = channeldata['description']
