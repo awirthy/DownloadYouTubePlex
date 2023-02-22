@@ -321,10 +321,10 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                             # =============== Add Items to Existing XML ============== #
                             # ======================================================== #
 
-                            if ytvideo_uid in strRSSData:
-                                print("Item (" + ytvideo_uid + ") already in archive file")
-                            else:
-                                NotifyPushover("apb75jkyb1iegxzp4styr5tgidq3fg","YouTube Video Downloaded (" + pName + ")","<html><body>" + ytvideo_title + "<br /><br />--------------------------------------------<br /><br />" + ytvideo_description + "</body></html>",ytvideo_thumbnail)
+                            # if ytvideo_uid in strRSSData:
+                            #     print("Item (" + ytvideo_uid + ") already in archive file")
+                            # else:
+                            NotifyPushover("apb75jkyb1iegxzp4styr5tgidq3fg","YouTube Video Downloaded (" + pName + ")","<html><body>" + ytvideo_title + "<br /><br />--------------------------------------------<br /><br />" + ytvideo_description + "</body></html>",ytvideo_thumbnail)
                     continue
                 else:
                     continue
