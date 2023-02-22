@@ -220,7 +220,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                             # ======================================================== #
 
                             print ('------------------      Download Thumbnail\n')
-                            bashcmdoutput = 'wget -O "' + sMediaFolder + pChannelID + '/Season_1/' + filename_noext + '.jpg" ' + ytvideo_thumbnail
+                            bashcmdoutput = 'wget -O ' + sMediaFolder + pChannelID + '/Season_1/' + filename_noext + '.jpg ' + ytvideo_thumbnail
                             print("bashcmd: " + bashcmdoutput)
                             processoutput = subprocess.Popen(bashcmdoutput.split(), stdout=subprocess.PIPE)
                             outputthumb, erroroutput = processoutput.communicate()
@@ -295,18 +295,18 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
 
                             # s01e02 - gc0rXlWwgB0.mp4
 
-                            print("Before Rename (mp4): " + sMediaFolder + pChannelID + "/" + filename_noext + ".mp4")
+                            print("Before Rename (mp4): " + sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".mp4")
                             renameString = "s01e" + str(strepnum) + " - " + ytvideo_uid
-                            print("After Rename (mp4): " + sMediaFolder + pChannelID + "/" + renameString + ".mp4")
+                            print("After Rename (mp4): " + sMediaFolder + pChannelID + "/Season_1/" + renameString + ".mp4")
 
-                            print("Before Rename (jpg): " + sMediaFolder + pChannelID + "/" + filename_noext + ".jpg")
+                            print("Before Rename (jpg): " + sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".jpg")
                             # renameString = "s01e" + str(strepnum) + " - " + ytvideo_uid
-                            print("After Rename (jpg): " + sMediaFolder + pChannelID + "/" + renameString + ".jpg")
+                            print("After Rename (jpg): " + sMediaFolder + pChannelID + "/Season_1/" + renameString + ".jpg")
 
-                            os.rename(sMediaFolder + pChannelID + "/" + filename_noext + ".mp4", sMediaFolder + pChannelID + "/" + renameString + ".mp4")
-                            os.rename(sMediaFolder + pChannelID + "/" + filename_noext + ".jpg", sMediaFolder + pChannelID + "/" + renameString + ".jpg")
-                            os.rename(sMediaFolder + pChannelID + "/" + filename_noext + ".description", sMediaFolder + pChannelID + "/" + renameString + ".description")
-                            os.rename(sMediaFolder + pChannelID + "/" + filename_noext + ".info.json", sMediaFolder + pChannelID + "/" + renameString + ".info.json")
+                            os.rename(sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".mp4", sMediaFolder + pChannelID + "/Season_1/" + renameString + ".mp4")
+                            os.rename(sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".jpg", sMediaFolder + pChannelID + "/Season_1/" + renameString + ".jpg")
+                            os.rename(sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".description", sMediaFolder + pChannelID + "/Season_1/" + renameString + ".description")
+                            os.rename(sMediaFolder + pChannelID + "/Season_1/" + filename_noext + ".info.json", sMediaFolder + pChannelID + "/Season_1/" + renameString + ".info.json")
 
                             # ======================================================== #
                             # ==================== Notify Pushover =================== #
