@@ -472,6 +472,32 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
     del RSSData
     gc.collect()
         
+# Initialize Variables
+
+settingsPath = ''
+rssTemplatePath = ''
+rssPath = ''
+httpHost = ''
+jsonFolder = ''
+jsonMediaFolder_YouTube = ''
+Settings_Email = ''
+Settings_MediaFolder = ''
+IsValid_Email = ''
+IsValid_MediaFolder = ''
+exist = ''
+file = ''
+xmlSettingsEmail = ''
+emailObject = ''
+xmlSettingsMediaFolder = ''
+xmlPodcastsDownload = ''
+Podcast_Name = ''
+Podcast_ChannelID = ''
+Podcast_FileFormat = ''
+Podcast_DownloadArchive = ''
+Podcast_FileQuality = ''
+Podcast_ChannelThumbnail = ''
+Podcast_YouTubeURL = ''
+
 # ======================================================== #
 # ===================== Script Start ===================== #
 # ======================================================== #
