@@ -115,6 +115,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
     epnum = ''
     renameString = ''
     RSSData = ''
+    pDownloadArchiveRename = ''
 
     try:
         print ('------------------      START YT-DLP\n')
