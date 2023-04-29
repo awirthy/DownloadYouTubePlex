@@ -132,6 +132,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
                     filename_json_isfile = False
                     filename_mp3_isfile = False
                     filename_mp4_isfile = False
+                    filename_ext = ""
 
                     if os.path.isfile(filename_json):
                         print('The JSON file is present.')
