@@ -7,6 +7,7 @@ import os
 import subprocess
 import json
 import requests
+import gc
 from email_validator import validate_email, EmailNotValidError
 # from email_validator import EmailNotValidError
 # from email_validator import EmailSynaxError
@@ -38,6 +39,17 @@ def NotifyPushover(AppToken,nTitle,nBody,pThumbnail):
         req = requests.post(url, data=my_pushover_request, files={"attachment":open("/config/maxresdefault.jpg","rb")})
         print("Pushover Status: " + str(req.status_code))
         print ('------------------      END NotifyPushover\n')
+
+        # ~~~~~~~~~~~~ Clear Variables ~~~~~~~~~~~~ #
+        del bashcmd
+        del process
+        del APPLICATION_TOKEN
+        del USER_TOKEN
+        del url
+        del my_pushover_request
+        del req
+        gc.collect()
+
     except Exception as err:
         print ('------------------      START NotifyPushover ERROR\n')
         print (err)
@@ -67,7 +79,7 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         # ======================================================== #
 
         pubDate = time.strftime('%Y%m%d%H%M')
-        bashcmd = 'yt-dlp -v -o ' + sMediaFolder + pChannelID + '/Season_1/%(id)s.%(ext)s --write-info-json --no-write-playlist-metafiles --playlist-items 1,2 --restrict-filenames --download-archive ' + pDownloadArchive + ' --add-metadata --no-embed-thumbnail --merge-output-format ' + pFileFormat + ' --format ' + pFileQuality + ' --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description ' + pYouTubeURL
+        bashcmd = 'yt-dlp -v -o ' + sMediaFolder + pChannelID + '/Season_1/%(id)s.%(ext)s --write-info-json --no-write-playlist-metafiles --playlist-items 1,2,3,4,5 --restrict-filenames --download-archive ' + pDownloadArchive + ' --add-metadata --no-embed-thumbnail --merge-output-format ' + pFileFormat + ' --format ' + pFileQuality + ' --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description ' + pYouTubeURL
         # bashcmd = "yt-dlp -v -o '" + sMediaFolder + pChannelID + "/%(id)s.%(ext)s' --write-info-json --external-downloader aria2c --external-downloader-args '-c -j 10 -x 10 -s 10 -k 1M' --playlist-items 1,2,3,4,5,3,4,5 --restrict-filenames --download-archive '" + pDownloadArchive + "' --add-metadata --merge-output-format " + pFileFormat + " --format " + pFileQuality + " --abort-on-error --abort-on-unavailable-fragment --no-overwrites --continue --write-description " + pYouTubeURL
         print ('------------------      \n\n')
         print("bashcmd: " + bashcmd)
@@ -341,6 +353,66 @@ def Run_YTDLP(sMediaFolder, pName, pChannelID, pFileFormat, pDownloadArchive, pF
         print (err.__annotations__)
         print (err.with_traceback)
         print ('\n------------------      END YT-DLP ERROR')
+    # ~~~~~~~~~~~~ Clear Variables ~~~~~~~~~~~~ #
+    del error
+    del bashcmd3
+    del process3
+    del output3
+    del error3
+    del pubDate
+    del bashcmd
+    del process
+    del output
+    del directory
+    del filename
+    del pathname
+    del extension
+    del filename_json
+    del filename_noext
+    del filename_mp3
+    del filename_mp4
+    del filename_json_isfile
+    del filename_mp3_isfile
+    del filename_mp4_isfile
+    del filename_ext
+    del ytvideo_uid
+    del ytvideo_title
+    del ytvideo_thumbnail
+    del ytvideo_description
+    del ytvideo_uploader
+    del ytvideo_uploader_url
+    del ytvideo_channel_id
+    del ytvideo_channel_url
+    del ytvideo_duration
+    del ytvideo_webpage_url
+    del ytvideo_filesize
+    del f
+    del data
+    del proceedCheck
+    del pDownloadArchiveRename
+    del strArchiveData
+    del strArchiveDataAll
+    del objArchive
+    del archive
+    del bashcmdoutput
+    del processoutput
+    del outputthumb
+    del erroroutput
+    del channel_filename_json
+    del channelf
+    del channeldata
+    del ytvideo_channel_desc
+    del ytvideo_channel_image
+    del pChannelThumbnail
+    del channelEpisodeNumber
+    del EpNumData
+    del rsstemplate
+    del intepnum
+    del strchannelEpisodeNumber
+    del epnum
+    del renameString
+    del RSSData
+    gc.collect()
         
 # ======================================================== #
 # ===================== Script Start ===================== #
@@ -466,3 +538,29 @@ if exist == True:
         print ('\n------------------      END XML ERROR')
 else:
     print('Settings Path Not Valid')
+
+# ~~~~~~~~~~~~ Clear Variables ~~~~~~~~~~~~ #
+del settingsPath
+del rssTemplatePath
+del rssPath
+del httpHost
+del jsonFolder
+del jsonMediaFolder_YouTube
+del Settings_Email
+del Settings_MediaFolder
+del IsValid_Email
+del IsValid_MediaFolder
+del exist
+del file
+del xmlSettingsEmail
+del emailObject
+del xmlSettingsMediaFolder
+del xmlPodcastsDownload
+del Podcast_Name
+del Podcast_ChannelID
+del Podcast_FileFormat
+del Podcast_DownloadArchive
+del Podcast_FileQuality
+del Podcast_ChannelThumbnail
+del Podcast_YouTubeURL
+gc.collect()

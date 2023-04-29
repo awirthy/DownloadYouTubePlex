@@ -23,8 +23,8 @@ RUN wget -O /tmp/DownloadYouTubePlex.tar.gz https://github.com/awirthy/DownloadY
 RUN mkdir -p /opt/DownloadYouTubePlex
 RUN tar zxf /tmp/DownloadYouTubePlex.tar.gz -C /opt/DownloadYouTubePlex
 RUN echo "#!/bin/sh" >> /etc/periodic/15min/DownloadYouTubePlex
-RUN echo "/opt/DownloadYouTubePlex/DownloadYouTubePlex-0.36.0/DownloadYouTubePlex.sh" >> /etc/periodic/15min/DownloadYouTubePlex
-RUN chmod 755 /opt/DownloadYouTubePlex/DownloadYouTubePlex-0.36.0/DownloadYouTubePlex.sh
+RUN echo "/opt/DownloadYouTubePlex/DownloadYouTubePlex-0.37.0/DownloadYouTubePlex.sh" >> /etc/periodic/15min/DownloadYouTubePlex
+RUN chmod 755 /opt/DownloadYouTubePlex/DownloadYouTubePlex-0.37.0/DownloadYouTubePlex.sh
 RUN chmod 755 /etc/periodic/15min/DownloadYouTubePlex
 CMD ["crond", "-f","-l","8"]
     
